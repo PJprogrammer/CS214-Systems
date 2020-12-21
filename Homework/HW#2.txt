@@ -1,0 +1,79 @@
+0. (1pt.)
+ What are the differences between the strlen() and sizeof() a char* string pointer in C? Why?
+ The function strlen() will return the amount of characters in a "character array" until it reaches the null
+ terminator ('\0'). On the other hand, sizeof() will return the amount of space a "char* string pointer" takes
+ in memory; which is equivalent to the amount of space a memory address uses. A memory address usually occupies either
+ 4 bytes (32-bit system) or 8 bytes (64-bytes system).
+
+
+1. (6pts.)
+ Write the function
+
+    replace(char base[], char from[], char to[])
+
+which finds the string 'from' in the string 'base' and replaces it with the string 'to'. You may assume that from and to
+are the same length. For example, the code
+
+    char string[] = "recieve";
+    replace(string, "ie", "ei");
+    //> should change 'string' to "receive".
+
+    *Be careful not to assume the substring being replaced is singular, or that its own substrings are unique.
+    *Do not rescan letters already checked/replaced
+        char string[] = "Msissisippi";
+        replace(string, "sis", "iss");
+        //> should change 'string' to "Mississippi" (.. and not miss the second "sis")
+
+        char string[] = " flajellate";
+        replace(string, "laj", "lag");
+        //> should change 'string' to "flagellate" (.. and not modify "lat")
+
+replace(char base[], char from[], char to[]) {
+    int i = 0;
+    while (base[i] != '\0') {
+        if(base[i] == from[0]) {
+            int initialIndex = i;
+
+            // Check if "from" string is found in "base" string
+            int k = 1;
+            int isMatch = 1;
+            while (from[k] != '\0' && isMatch == 1) {
+                i++;
+                if(from[k] != base[i]) {
+                    isMatch = 0;
+                }
+                k++;
+            }
+
+            if(isMatch) {
+                // Replace "from" string with "to" string
+                for (int j = initialIndex; j <= i; j++) {
+                    base[j] = to[j-initialIndex];
+                }
+            } else {
+                i = initialIndex+1;
+            }
+        }
+        i++;
+    }
+}
+
+
+EX. (2pts)
+Are strlen() and sizeof() of the two string variables below different?
+(run the code to test your assumption - be sure to load <string.h> to get access to strlen())
+Why is strlen() the same or different?
+Why is sizeof() the same or different?
+
+    char* string0 = "hello";
+    char string1[] = "hello';
+
+Same; The function strlen() returns the same value, 5, when called on both string0 and string1. Since both
+variables "refer" to a sequence of 5 characters along with a null terminator which is not counted by strlen().
+
+Different; The function strlen() returns a different value when called on both string0 and string1.
+This is because string0 is a character pointer. The pointer in this case has a character format and
+encodes the specific memory address which contains the first character in the string, 'h'.
+In this case, sizeof(string0) will return either 4 or 8 since a memory address is usually either 4 bytes
+long (32-bit system) or 8 bytes long (64-bytes system). On the other hand, sizeof(string1) will return
+(strlen(string1)+1)*sizeof(char) = 6; since this is a character array.

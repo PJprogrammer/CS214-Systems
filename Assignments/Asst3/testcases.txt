@@ -1,0 +1,45 @@
+/*
+ * Author: Binhong Ye
+ * Purpose: KKJ Server Test Cases
+ */
+
+Note: We created a testing client service in order to properly test each one of the test cases below.
+
+Testing:
+    1. We tested if our read() function would detect error messages sent from client side by building a client and
+       sending error messages for (message 0, message 2, message 4).
+        ex. "ERR|M0CT|", "ERR|M2CT|", "ERR|M4CT|", ...
+
+    2. We tested if our read() function would detect message format error if message sent from client had an invalid
+       number.
+        ex. "REG|1a2|Who's there?|"
+
+    3. We tested if our read() function would detect message format error if message sent from client had too few pipes.
+        ex. "REG12|Who's there?|", "REG|12Who's there?|"
+
+    4. We tested if our read() function would detect message format error if message send from client had too many
+       pipes.
+        ex. "REG||12|Who's there?|", "R|EG|12|Who's there?|", "REG|12||Who's there?|", "REG|12|Who's there?||"
+
+    5. We tested if our read() function would detect message format error if message send from client did not contain
+       a message type.
+        ex. "|12|Who's there?|"
+
+    6. We tested if our read() function would detect message length error if message sent from client had a length
+           that does not correspond to the length of the message being sent.
+            ex. "REG|125|Who's there?|"
+
+    7. We tested length errors for message 1 and message 3 by adding/removing characters.
+        (sent from client to server)
+         ex. "REG|13|Who's theree?|", "REG|11|Who's ther?|"
+
+    8. We tested content errors for message 1, message 3, message 5 by adding/removing/replacing characters and
+       punctuation. (sent from client to server)
+        ex. "REG|12|Who's thare?|", "REG|12|I disgusted4|"
+
+    9. We tested to make sure that the server would gracefully exit if the client closed the connection early.
+
+    10.We tested what would happen in a corner case if the last pipe is missing. We found out that the server's read
+       function will block indefinitely as long as client is alive. We do NOT have to handle this case per instructor.
+        ex. "REG|12|Who's there?"
+

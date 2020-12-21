@@ -1,0 +1,533 @@
+
++5pts: because we like you!
+
++15pts: code compiles
+
++10pts: no segment faults
+
+-20pts: did not keep to the API
+	-10pts: changed number or type of parameters
+	-10pts: requires a different compliation mechanic
+
++10pts: good coding practices
+       +2pts: clear variable names
+       +2pts: modularity 
+       +3pts: comments
+	   +3pts: free all dynmem before returning
+
++10pts: readme.pdf (explanation of implementation)
+		+3pts has text
+		+7pts: says something about their code and/or mirrors a manpage
+		
+testcases.txt: 6pts+(1pt*n) //(max 10)
+		+6pts: 1 testcase
+		+1pt: each other distinct testcase (saturate at 10)
+
+
+
++40pts: test cases (below)
+
+
+case0: +5pts
+Input: "   We have a wonderful trip!"
+Expected output:
+word: "We"
+word: "have"
+word: "a"
+word: "wonderful"
+word: "trip"
+negate: "!"
+
+
+case1: +3pts
+Input: "int *ptr=&val1"
+Expected output:
+word: "int"
+multiply/dereference operator: "*" 
+word: "ptr"
+assignment: "="  
+AND/address operator: "&" 
+word: "val"
+decimal integer: "1"
+
+
+case2: +5pts
+Input: “ab123 += Pi*.511”
+Expected output:
+word: "ab123"
+plus equals: "+="
+word: "Pi"
+multiply/dereference operator: "*"
+structure member: "."
+decimal integer: "511"
+
+
+case3: +5pts
+Input: "3.1 03.1 x3.1 0x3.1 30x1.x"
+floating point: "3.1"
+floating point: "03.1"
+word: "x3"
+structure member: "."
+decimal integer: "1"
+hexadecimal integer: "0x3"
+structure member: "."
+decimal integer: "1"
+decimal integer: "30"
+word: "x1"
+structure member: "."
+word: "x"
+
+
+
+case4: +5pts
+Input: “012239.3563e-6 0xab2c!=[special]”
+Expected output:
+octal integer: "01223"
+floating point: "9.3563e-6"
+hexidecimal: "0xab2c"
+inequality test: "!="
+left bracket: "["
+word: "special"
+right bracket: "]"
+
+
+case5: +5pts
+Input: "+,++,+++,++++,+++++,++=,+++=="
+addition: "+"
+comma: ","
+increment: "++"
+comma: ","
+increment: "++"
+addition: "+"
+comma: ","
+increment: "++"
+increment: "++"
+comma: ","
+increment: "++"
+increment: "++"
+addition: "+"
+comma: ","
+increment: "++"
+assignment: "="
+comma: ","
+increment: "++"
+plus equals: "+="
+assignment: "="
+
+
+case6: +2pts
+Input: <nothing>
+Expected output:
+<No Segmentation Fault>
+(may or may not print an error message)
+(may or may not claim a broken or bad token)
+
+
+case7: +2pts
+Input: " "
+Expected output:
+<No Segmentation Fault>
+(may or may not print an error message)
+(may or may not claim a broken or bad token)
+
+
+case8: +3pts
+Input: ""
+Expected output:
+<No Segmentation Fault>
+(may or may not print an error message)
+(may or may not claim a broken or bad token)
+
+
+case9: +2pt/s
+Input: "what the %_ is this"
+Expected output:
+<No Segmentation Fault>
+(may or may not print an error message)
+(may or may not claim a broken or bad token)
+
+
+case10: +3pts
+Input: "Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.
+
+Now we are engaged in a great civil war, testing whether that nation, or any nation so conceived and so dedicated, can long endure. We are met on a great battle-field of that war. We have come to dedicate a portion of that field, as a final resting place for those who here gave their lives that that nation might live. It is altogether fitting and proper that we should do this.
+But, in a larger sense, we can not dedicate-we can not consecrate-we can not hallow-this ground. The brave men, living and dead, who struggled here, have consecrated it, far above our poor power to add or detract. The world will little note, nor long remember what we say here, but it can never forget what they did here. It is for us the living, rather, to be dedicated here to the unfinished work which they who fought here have thus far so nobly advanced. It is rather for us to be here dedicated to the great task remaining before us-that from these honored dead we take increased devotion to that cause for which they gave the last full measure of devotion-that we here highly resolve that these dead shall not have died in vain-that this nation, under God, shall have a new birth of freedom-and that government of the people, by the people, for the people, shall not perish from the earth."
+Expected output:
+word "Four"
+word: "score"
+word: "and"
+word: "seven"
+word: "years"
+word: "ago"
+word: "our"
+word: "fathers"
+word: "brought"
+word: "forth"
+word: "on"
+word: "this"
+word: "continent"
+comma: ","
+word: "a"
+word: "new"
+word: "nation"
+comma: ","
+word: "conceived"
+word: "in"
+word: "Liberty"
+comma: ","
+word: "and"
+word: "dedicated"
+word: "to"
+word: "the"
+word: "proposition"
+word: "that"
+word: "all"
+word: "men"
+word: "are"
+word: "created"
+word: "equal"
+structure member: ".
+word: "Now"
+word: "we"
+word: "are"
+word: "engaged"
+word: "in"
+word: "a"
+word: "great"
+word: "civil"
+word: "war"
+comma: ","
+word: "testing"
+word: "whether"
+word: "that"
+word: "nation"
+comma: ","
+word: "or"
+word: "any"
+word: "nation"
+word: "so"
+word: "conceived"
+word: "and"
+word: "so"
+word: "dedicated"
+comma: ","
+word: "can"
+word: "long"
+word: "endure"
+structure member: "."
+word: "We"
+word: "are"
+word: "met"
+word: "on"
+word: "a"
+word: "great"
+word: "battle"
+minus/subtract operator: "-"
+word: "field"
+word: "of"
+word: "that"
+word: "war"
+structure member: "."
+word: "We"
+word: "have"
+word: "come"
+word: "to"
+word: "dedicate"
+word: "a"
+word: "portion"
+word: "of"
+word: "that"
+word: "field"
+comma: ","
+word: "as"
+word: "a"
+word: "final"
+word: "resting"
+word: "place"
+word: "for"
+word: "those"
+word: "who"
+word: "here"
+word: "gave"
+word: "their"
+word: "lives"
+word: "that"
+word: "that"
+word: "nation"
+word: "might"
+word: "live"
+structure member: "."
+word: "It"
+word: "is"
+word: "altogether"
+word: "fitting"
+word: "and"
+word: "proper"
+word: "that"
+word: "we"
+word: "should"
+word: "do"
+word: "this"
+structure member: "."
+word: "But"
+comma: ","
+word: "in"
+word: "a"
+word: "larger"
+word: "sense"
+comma: ","
+word: "we"
+word: "can"
+word: "not"
+word: "dedicate"
+minus/subtract operator: "-"
+word: "we"
+word: "can"
+word: "not"
+word: "consecrate"
+minus/subtract operator: "-"
+word: "we"
+word: "can"
+word: "not"
+word: "hallow"
+minus/subtract operator: "-"
+word: "this"
+word: "ground"
+structure member: "."
+word: "The"
+word: "brave"
+word: "men"
+comma: ","
+word: "living"
+word: "and"
+word: "dead"
+comma: ","
+word: "who"
+word: "struggled"
+word: "here"
+comma: ","
+word: "have"
+word: "consecrated"
+word: "it"
+comma: ","
+word: "far"
+word: "above"
+word: "our"
+word: "poor"
+word: "power"
+word: "to"
+word: "add"
+word: "or"
+word: "detract"
+structure member: "."
+word: "The"
+word: "world"
+word: "will"
+word: "little"
+word: "note"
+comma: ","
+word: "nor"
+word: "long"
+word: "remember"
+word: "what"
+word: "we"
+word: "say"
+word: "here"
+comma: ","
+word: "but"
+word: "it"
+word: "can"
+word: "never"
+word: "forget"
+word: "what"
+word: "they"
+word: "did"
+word: "here"
+structure member: "."
+word: "It"
+word: "is"
+word: "for"
+word: "us"
+word: "the"
+word: "living"
+comma: ","
+word: "rather"
+comma: ","
+word: "to"
+word: "be"
+word: "dedicated"
+word: "here"
+word: "to"
+word: "the"
+word: "unfinished"
+word: "work"
+word: "which"
+word: "they"
+word: "who"
+word: "fought"
+word: "here"
+word: "have"
+word: "thus"
+word: "far"
+word: "so"
+word: "nobly"
+word: "advanced"
+structure member: "."
+word: "It"
+word: "is"
+word: "rather"
+word: "for"
+word: "us"
+word: "to"
+word: "be"
+word: "here"
+word: "dedicated"
+word: "to"
+word: "the"
+word: "great"
+word: "task"
+word: "remaining"
+word: "before"
+word: "us"
+minus/subtract operator: "-"
+word: "that"
+word: "from"
+word: "these"
+word: "honored"
+word: "dead"
+word: "we"
+word: "take"
+word: "increased"
+word: "devotion"
+word: "to"
+word: "that"
+word: "cause"
+word: "for"
+word: "which"
+word: "they"
+word: "gave"
+word: "the"
+word: "last"
+word: "full"
+word: "measure"
+word: "of"
+word: "devotion"
+minus/subtract operator: "-"
+word: "that"
+word: "we"
+word: "here"
+word: "highly"
+word: "resolve"
+word: "that"
+word: "these"
+word: "dead"
+word: "shall"
+word: "not"
+word: "have"
+word: "died"
+word: "in"
+word: "vain"
+minus/subtract operator: "-"
+word: "that"
+word: "this"
+word: "nation"
+comma: ","
+word: "under"
+word: "God"
+comma: ","
+word: "shall"
+word: "have"
+word: "a"
+word: "new"
+word: "birth"
+word: "of"
+word: "freedom"
+minus/subtract operator: "-"
+word: "and"
+word: "that"
+word: "government"
+word: "of"
+word: "the"
+word: "people"
+comma: ","
+word: "by"
+word: "the"
+word: "people"
+comma: ","
+word: "for"
+word: "the"
+word: "people"
+comma: ","
+word: "shall"
+word: "not"
+word: "perish"
+word: "from"
+word: "the"
+word: "earth"
+structure member: "."
+
+
+
+
+Extra credit:
+EX0: (recognize keywords)
+case0: +2pts (base)
+Input: "if while enum typedef struct"
+Expected output:
+<identifies each as a C keyword and not as a token - this may take various forms>
+(one possible example)
+keyword: "if"
+keyword: "while"
+keyword: "enum"
+keyword: "typedef"
+keyword: "struct"
+
+case1: +1pt (isolation)
+Input: "structs"
+Expected output:
+word: "structs"
+
+
+EX1: (implement comments)
+case0: +1pts
+Input: "hid /* ignore me! */ den"
+Expected output:
+word: "hid"
+word: "den"
+
+case1: +2pts
+Input: "//hello
+goodbye" 
+Expected output:
+word: "goodbye"
+
+(to prepare it: either physically press return in the quotes or copy/paste and test a call)
+e.g.
+./tokenizer "\\hello
+goodbye"
+
+
+EX2: (quoting)
+case0: +1pt
+Input: "3 'words in quotes' do not count"
+Expected output: <the name of the operator is variable, and there is no rule on including original quotes or not, only check the content is there and not labeled as an existing token type>
+decimal integer: "3"
+quoted: "'words in quotes'"  
+word: "do"
+word: "not"
+word: "count"
+
+case1: +2pts
+Input: ' here "1 is not 2" nor ".0812 either" '
+Expected output: <the name of the operator is variable, and there is no rule on including original quotes or not, only check the content is there and not labeled as an existing token type>
+word: "here"
+quoted: '1 is not 2'
+word: "nor"
+quoted: ".0812 either"
+
+
+
+
+
+
+

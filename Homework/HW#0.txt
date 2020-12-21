@@ -1,0 +1,84 @@
+0. (1pt. each)
+What do these loops print?
+Determine what they print first, then run them
+Write a short English description after each when submitting (do not submit numeric data)
+
+for(i = 0; i < 10; i = i + 2)
+{
+    printf("%d\n", i);
+}
+
+Description: Prints all the integers starting at 0 with a stride of two strictly less than 10.
+    
+    
+for(i = 100; i >= 0; i = i - 7)
+{
+    printf("%d\n", i);
+}
+    
+Description: Prints all the integers starting at 100 with a stride of seven greater than or equal to 0.
+    
+    
+for(i = 1; i <= 10; i = i + 1)
+{
+    printf("%d\n", i);
+}
+
+Description: Prints all the integers starting at 1 less than or equal to 10.
+
+    
+for(i = 2; i < 100; i = i * 2)
+{
+    printf("%d\n", i);
+}
+
+Description: Prints all the integers starting at 2 with a multiple of two strictly less than 100.
+
+
+
+1. (4pts.)
+Fill in the areas in the code below to produce to print this triangle:
+
+    *
+    **
+    ***
+    ****
+    *****
+    ******
+    *******
+    ********
+    *********
+    **********
+
+Do not call any functions other than those included below:
+
+    int i = 1;
+    int j = 1;
+    for(int i = 1; i <= 10; i = i + 1)
+    {
+        for(int j = 1; j <= i; j = j + 1)
+        {
+            printf("*");
+        }
+        printf("\n");
+    }
+
+    
+Extra: (2pts.)
+ Change your loops to be while loops
+ This necessitates adding two additional lines.
+ (paste code below if attempting)
+
+    int i = 1;
+    int j = 1;
+    while(i <= 10)
+    {
+        j = 1;
+        while(j <= i)
+        {
+            printf("*");
+            j = j + 1;
+        }
+        printf("\n");
+        i = i + 1;
+    }

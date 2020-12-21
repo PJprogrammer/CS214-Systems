@@ -1,0 +1,71 @@
+0. (2pts.)
+What's wrong with this #define line?
+    #define N 10;
+
+    Answer: The #define line should not contain a semicolon at the end.
+
+1. (2pts.)
+Suppose you defined the macro
+    #define SIX 2+4
+
+    Then, suppose you used it in another expression:
+       int x = 12 / SIX;
+
+    What value would x be set to?
+
+    Answer: 10; The expression would be 12 / 2 + 4 since #define just performs "text replacement". Evaluating the
+            expression left-to-right using order of operations results in x being set equal to 10.
+
+2. (4pts.)
+Write your own version of atoi:
+    Take a char, inspect its numeric value and return its corresponding int value:
+    (do not use atoi() or any other automatic conversion function)
+        e.g.
+            int test = my_atoiChar('5');
+            if( test == 5 )
+            {
+                return 0;
+            }
+            else
+            {
+                return -1;
+            }
+
+    int my_atoiChar(char numChar) {
+        int num = numChar - '0';
+        return num;
+    }
+
+
+EX: (2pts.)
+Using my_atoi, expand it to convert a string representing an integer in to an integer.
+Take a string of any length, scan its chars until you hit the '\0' and return the entire string's int value:
+(do not use atoi() or any other automatic conversion function)
+    e.g.
+        int test = my_atoiString("512");
+        if( test == 512 )
+        {
+            return 0;
+        }
+        else
+        {
+            return -1;
+        }
+
+    int my_atoiString(char* numString) {
+        int num = 0;
+
+        int len = 0;
+        int base = 1;
+        while (numString[len] != '\0') {
+            base *= 10;
+            len++;
+        }
+
+        for (int i = 0; i < len; i++) {
+            base /= 10;
+            num += (numString[i] - '0') * base;
+        }
+
+        return num;
+    }

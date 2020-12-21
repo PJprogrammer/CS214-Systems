@@ -1,0 +1,104 @@
+
+--- Fundamentals & docs: (30pts total)
+Make and compilation: 10pts
+	+2: Makefile (or makefile) exists
+	+5: code compiles with 'make clean; make all'
+		(+1) error case -4pts:  must compile code manually
+	+3: correct executable name ("detector")
+
+good coding: 14pts
+	+4: self-documenting variable names
+	+3: per-function comments
+	+4: per-code block and global comments
+	+3: coding style, layout and modularity
+
+testcases.txt file: 6pts
+	+2: has text
+	+4: contains description of at least five test cases
+
+-4pts: segfault
+---
+
+
+--- Infrastructure: (5pts total)
+	+1pt: contains call to pthread_create
+	+2pts: contains call to pthread_join
+	+1pt: contains call to pthread_mutex_lock
+	+1pt: contains call to pthread_mutex_unlock
+---
+
+
+
+--- Basics and robustness: (5pts total)
+does not explode on:
+	+1pt: a call with no parameters
+	+1pt: a call with three parameters	
+	+2pts: a call on something not a directory (i.e. ./detector "moogilywoogily")
+	+1pt: a call to an empty directory
+---
+
+
+--- Testcases: (60pts total)
+Test0: 9pts
+called on a directory holding three files, each holding "hello!".
+	+3pts: outputs correct number of lines (3)
+	+2pts: outputs correct JSD (0)
+	+2pts: outputs correct color
+	+2pts: outputs correct names (filenames only, -1pt)
+
+Test1: 9pts
+called on a directory holding three files each holding, respectively: "hello!" , "Hello." and "hello?"
+	+3pts: outputs correct number of lines (3)
+	+2pts: outputs correct JSD (0)
+	+2pts: outputs correct color
+	+2pts: outputs correct names (filenames only, -1pt)
+
+Test2:	10pts
+called on a directory holding a file and a subdirectory, subdirectory holds five concatenated layers of subdirectories, the last with one file.
+	+3pts: outputs correct number of lines (1)
+	outputs correct JSD:
+		+2pts	log10: 0.0469
+		+1pt	log2: 0.1556
+	+3pts: outputs correct color
+	+2pts: outputs correct names (filenames only, -1pt)
+
+Test3:	12pts
+called on a directory holding two large files..
+	+3pts: outputs correct number of lines (1)
+	outputs correct JSD:
+		+4pts:	log10: 0.1193
+		+3pts:	log2: 0.3964
+	+3pts: outputs correct color
+	+2pts: outputs correct names (filenames only, -1pt)
+   ( shouldn't explode! )
+
+Test4: 12pts
+called on a directory holding two files and a subdirectory that holds a file and a subdirectory that holds another file.		
+	+3pts: outputs correct number of lines  (3)
+	 outputs correct JSDs:
+		+2pts	log10:
+						file0 and file2: 0.3
+						file0 and file1: 0.26
+						file1 and file2: 0.18
+		+1pt	log2:
+						file0 and file2: 1
+						file0 and file1: 0.88
+						file1 and file2: 0.6
+	+3pts: output in correct order:
+		file0 and file2
+		file0 and file1
+		file1 and file2
+	+3pts:	outputs correct color(s)
+	+2pts: outputs correct names (filenames only, -1pt)
+
+Test5: 8pts
+called on a directory holding two files and a subdirectory, which holds a file and a subdirectory that are both read- and execute-protected.
+	+2pts: outputs correct number of lines (1)
+	outputs correct JSD:
+		+2pts:	log10: 0.0937
+		+1pt:	log2: 0.3113
+	+2pts: outputs correct color
+	+2pts: outputs correct names: (filenames only, -1pt)	
+---
+
+

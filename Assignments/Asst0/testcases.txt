@@ -1,0 +1,209 @@
+Test Case 1:
+Purpose: Test if words are detected
+Input: "abc ABC abc123"
+Output:
+word: "abc"
+word: "ABC"
+word: "abc123" - CONFLICT
+
+Test Case 2:
+Purpose: Test if words are detected without delimiter between previous token
+Input: "123abc 012abc 0xabcZ 1.3abc 1.3e1abc"
+Output:
+decimal integer: "123"
+word: "abc"
+octal integer: "012"
+word: "abc"
+hexadecimal integer: "0xabc"
+word: "Z"
+floating point: "1.3"
+word: "abc"
+floating point: "1.3e1"
+word: "abc"
+
+Test Case 3:
+Purpose: Test if decimal integers are detected
+Input: "123 0888 0129"
+Output:
+decimal integer: "123"
+decimal integer: "0888"
+decimal integer: "0129"
+
+Test Case 4:
+Purpose: Test if octal are detected
+Input: "0123 000 0777"
+Output:
+octal integer: "0123"
+octal integer: "000"
+octal integer: "0777"
+
+Test Case 5:
+Purpose: Test if hexadecimals are detected
+Input: "0x000 0X123 0xaf 0XAF"
+Output:
+hexadecimal integer: "0x000"
+hexadecimal integer: "0X123"
+hexadecimal integer: "0xaf"
+hexadecimal integer: "0XAF"
+
+Test Case 6:
+Purpose: Test if floating points are detected
+Input: "3.1 30.01 3.1e10 3.1e-10 3.00e1"
+Output:
+floating point: "3.1"
+floating point: "30.01"
+floating point: "3.1e10"
+floating point: "3.1e-10"
+floating point: "3.00e1"
+
+Test Case 7:
+Purpose: Test if floating points-like tokens are split properly
+Input: "3..1 3...1e 31. 31.e"
+Output:
+decimal integer: "3"
+structure member: "."
+structure member: "."
+decimal integer: "1"
+decimal integer: "3"
+structure member: "."
+structure member: "."
+structure member: "."
+decimal integer: "1"
+word: "e"
+decimal integer: "31"
+structure member: "."
+decimal integer: "31"
+structure member: "."
+word: "e"
+
+Test Case 8:
+Purpose: Test if three character operators are detected
+Input: "<<= >>="
+Output:
+shift left equals: "<<="
+shift right equals: ">>="
+
+Test Case 9:
+Purpose: Test if three character operators are detected (no space)
+Input: "<<=>>="
+Output:
+shift left equals: "<<="
+shift right equals: ">>="
+
+Test Case 10:
+Purpose: Test if two character operators are detected
+Input: "+= -= *= /= %= <= >= == != || && ++ -- >> << -> &= ^= |="
+Output:
+plus equals: "+="
+minus equals: "-="
+times equals: "*="
+divide equals: "/="
+mod equals: "%="
+less than or equal test: "<="
+greater than or equal test: ">="
+equality test: "=="
+inequality test: "!="
+logical OR: "||"
+logical AND: "&&"
+increment: "++"
+decrement: "--"
+shift right: ">>"
+shift left: "<<"
+structure pointer: "->"
+bitwise AND equals: "&="
+bitwise XOR equals: "^="
+bitwise OR equals: "|="
+
+Test Case 11:
+Purpose: Test if two character operators are detected (without delimiters)
+Input: "+=word-=word*=letter/=abc%=3.1<=3.12>=0x123==!=||&&++-->><<->&=^=|="
+Output:
+plus equals: "+="
+word: "word"
+minus equals: "-="
+word: "word"
+times equals: "*="
+word: "letter"
+divide equals: "/="
+word: "abc"
+mod equals: "%="
+floating point: "3.1"
+less than or equal test: "<="
+floating point: "3.12"
+greater than or equal test: ">="
+hexadecimal integer: "0x123"
+equality test: "=="
+inequality test: "!="
+logical OR: "||"
+logical AND: "&&"
+increment: "++"
+decrement: "--"
+shift right: ">>"
+shift left: "<<"
+structure pointer: "->"
+bitwise AND equals: "&="
+bitwise XOR equals: "^="
+bitwise OR equals: "|="
+
+Test Case 12:
+Purpose: Test if one character operators are detected
+Input: ", ! ~ ^ | + / ? : < > = & - *"
+Output:
+comma: ","
+negate: "!"
+1s complement: "~"
+bitwise XOR: "^"
+bitwise OR: "|"
+addition: "+"
+division: "/"
+conditional true: "?"
+conditional false: ":"
+less than test: "<"
+greater than test: ">"
+assignment: "="
+AND/address operator: "&"
+minus/subtract operator: "-"
+multiply/dereference operator: "*"
+
+Test Case 13:
+Purpose: Test if one character operators are detected (without delimiters)
+Input: ",pad!pad~3.1^3.1|30.1+0123/099?:<>=&-*"
+Output:
+
+Extra Credit (First Opportunity - C Keywords) Test Cases:
+
+Test Case 1:
+Purpose: Test if comments are ignored
+Input: "abc auto 123"
+Output:
+word: "abc"
+C Keyword: "auto"
+decimal integer: "123"
+
+Test Case 2:
+Purpose: Test if comments are ignored
+Input: "continue"
+Output:
+C Keyword: "continue"
+
+Extra Credit (Second Opportunity - C Comments) Test Cases:
+
+Test Case 1:
+Purpose: Test if comments are ignored
+Input: "/*My Comment1*\"
+Output:
+
+Test Case 2:
+Purpose: Test if comments are ignored
+Input: "abc/*My Comment1*\123    /*My Comment2*\    3.1"
+Output:
+word: "abc"
+decimal integer: "123"
+floating point: "3.1"
+
+Test Case 3:
+Purpose: Test if comments are ignored (comments are side-by-side)
+Input: "abc/*My Comment1*\/*My Comment2*\123"
+Output:
+word: "abc"
+decimal integer: "123"

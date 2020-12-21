@@ -1,0 +1,120 @@
+0. (3pts.)
+Using opendir() and readdir(), open the current directory and output all filenames until there are no more. Include a main that does this below.
+
+#include <stdio.h>
+#include <dirent.h>
+
+int main(int argc, char* argv[])
+{
+    struct dirent *dirEntry;
+    DIR *dir = opendir("./");
+
+    if(dir == NULL) {
+        printf("Could not open directory");
+        return -1;
+    } else {
+        while ((dirEntry = readdir(dir)) != NULL) {
+            printf("%s\n", dirEntry->d_name);
+        }
+    }
+
+    return 0;
+}
+
+1. (4pts.)
+Parse the dirent struct to see if an entry is a directory or a file. If it is a directory, prepend "./" to the filename before printing it out. Include a main that does this below.
+
+#include <stdio.h>
+#include <dirent.h>
+
+int main(int argc, char* argv[])
+{
+    struct dirent *dirEntry;
+    DIR *dir = opendir("./");
+
+    if(dir == NULL) {
+        printf("Could not open directory");
+        return -1;
+    } else {
+        while ((dirEntry = readdir(dir)) != NULL) {
+            if(dirEntry->d_type == DT_DIR) {
+                printf("./%s\n", dirEntry->d_name);
+            } else {
+                printf("%s\n", dirEntry->d_name);
+            }
+        }
+    }
+
+    return 0;
+}
+
+2. (3pts.)
+Open a file handle to each file, use lseek to determine the file's size in bytes and print out the file's size in bytes next to its name. Include a main that does this below.
+
+#include <stdio.h>
+#include <dirent.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(int argc, char* argv[])
+{
+    struct dirent *dirEntry;
+    DIR *dir = opendir("./");
+
+    if(dir == NULL) {
+        printf("Could not open directory");
+        return -1;
+    } else {
+        while ((dirEntry = readdir(dir)) != NULL) {
+            if(dirEntry->d_type == DT_DIR) {
+                printf("./%s\n", dirEntry->d_name);
+            } else {
+                int fd = open(dirEntry->d_name, O_RDONLY);
+                int size = lseek(fd, (size_t)0, SEEK_END);
+                close(fd);
+
+                printf("%s\t%d\n", dirEntry->d_name, size);
+            }
+        }
+    }
+
+    return 0;
+}
+
+EX. (3pts.)
+Add a color formatting element. Print out executable binaries in bold red, regular files in light green, directories in light blue and anything else in white. Be careful - changing the console printout color is a durable operation that is global in scope, so once you change the color, anything printed from anywhere in your Process will be in in that color. It is a good practice to always presume the color is incorrectly set before you print and to set it to what you want before you print anywhere (especially in informational or error outputs). You will also need to find a way to determine if a file is executable or not
+
+#include <stdio.h>
+#include <dirent.h>
+#include <unistd.h>
+
+#define BLUE "\x1B[34m"
+#define RED "\x1B[31m"
+#define GREEN "\x1B[32m"
+#define WHITE "\x1B[37m"
+#define RESET "\x1B[0m"
+
+int main(int argc, char* argv[])
+{
+    struct dirent *dirEntry;
+    DIR *dir = opendir("./");
+
+    if(dir == NULL) {
+        printf("Could not open directory");
+        return -1;
+    } else {
+        while ((dirEntry = readdir(dir)) != NULL) {
+            if(dirEntry->d_type == DT_DIR) { // Light Blue
+                printf("%s%s%s\n", BLUE, dirEntry->d_name, RESET);
+            } else if(access(dirEntry->d_name, X_OK) != -1) { // Red
+                printf("%s%s%s\n", RED, dirEntry->d_name, RESET);
+            } else if(dirEntry->d_type == DT_REG) { // Light Green
+                printf("%s%s%s\n", GREEN, dirEntry->d_name, RESET);
+            } else { // White
+                printf("%s%s%s\n", WHITE, dirEntry->d_name, RESET);
+            }
+        }
+    }
+
+    return 0;
+}

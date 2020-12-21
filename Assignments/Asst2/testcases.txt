@@ -1,0 +1,43 @@
+/*
+ * Author: Binhong Ye
+ * Purpose: Plagiarism Checker Test Cases
+ */
+
+Test cases：
+1. Check if the program will output correct score in simple case.
+    File 1: "this is my plagiarized homework haha"
+    File 2: "this is my plagiarized homework lol"
+
+    Output: 0.050 File 1 and File 2
+
+2. Check if the program will emit warning/error if:
+    - no files found (Output: "Error: No files found")
+    - only one file found (Output: "Error: Only 1 file found")
+    - directory can not be opened (Output: "Error opening directory: dirname")
+
+3. Check if program correctly parses tokens in file:
+    - check if hyphens are included in token (e.x. "upper-case") -> Token: "upper-case"
+    - check if punctuation and other symbols are ignored (e.x. "upper&-&case") -> "upper-case"
+    - check if upper-case is converted to lower-case (e.x. "UPPER-CASE") -> Token: "upper-case"
+    - check if any delimiter will cause current token to end
+
+4. Check if program will return 0.000 (in red color) for files containing the same tokens
+    File 1: "this is my plagiarized homework haha"
+    File 2: "this is my plagiarized homework haha"
+
+    Output: 0.000 File 1 and File 2
+
+5. Check if program will return 0.151 (in green color) for file with tokens and an empty file
+    File 1: "this is my plagiarized homework haha"
+    File 2: ""
+
+    Output: 0.151 File 1 and File 2
+
+6. Check if output is ordered correctly
+    File 1: 10 tokens
+    File 2: 5 tokens
+    File 3: 15 tokens
+
+    score File2 and File1 (Priority: 5+10=  15)
+    score File2 and File3 (Priority: 5+15=  20)
+    score File1 and File3 (Priority: 10+15= 25)

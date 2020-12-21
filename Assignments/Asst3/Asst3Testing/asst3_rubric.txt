@@ -1,0 +1,84 @@
+
++10pts ... holiday time!
+
+
+--- Fundamentals & docs: (35pts total)
+Make and compilation: 15pts
+	+5pts: Makefile (or makefile) exists
+	+5pts: code compiles with 'make clean; make all'
+		(+1pt) error case -4pts:  must compile code manually
+	+5pts: correct executable name ("KKJserver")
+
+good coding: 14pts
+	+4: self-documenting variable names
+	+3: per-function comments
+	+4: per-code block and global comments
+	+3: coding style, layout and modularity
+
+testcases.txt file: 6pts
+	+2: has text
+	+4: contains description of at least five test cases
+
+-4pts: segfault
+---
+
+
+--- Operation: (55pts total)
+<portnum> is any port number greater than 5000 and less than 64K
+
+start up server: ./KKJprotocol <portnum>
+	(if it complains about missing a joke file, then look for a .txt in Asst and run the code with that)
+connect client to server at <portnum>
+
+	+6: on read: REG|13|Knock, knock.|
+	
+send: ERR|M0LN|
+	+5: see textual description on server side
+	+6: connection is closed
+
+break and reconnect
+	(if have to restart server: -2pts)
+read initial message
+send: REG|5|Who's There.|
+	+7: on read: ERR|M1FT|
+		(+6: on read: ERR|M1LN|) error case, -1pt
+		(+3: on read: ERR|M1CT|) error case, -4pts
+
+break and reconnect
+	(if have to restart server: -2pts)
+read initial message
+send: REG|12|Who's There?|
+	+6: read: <there is a correctly-formatted joke>
+	
+send: REG|<size of joke+6>|<joke>, who?|
+	+5: read: <there is a correctly-formatted punchline>
+	
+send: REG|4|Meh.|
+	+7: no response, connection closes
+	
+(do NOT break)
+connect again to server
+	+7: does accept connection
+
+	+6: on read: REG|13|Knock, knock.|
+---
+
+
+--- EX: (10pts total)
+Attempt to invoke code with the following in a file (exempting quotes):
+"
+Who.
+I didn't know you were an owl!
+
+Dijkstra.
+That path was taking too long, so I let myself in.
+"
+
+	+10pts: Different jokes are served by the server over time after a number of client connections.
+---
+
+
+
+
+
+

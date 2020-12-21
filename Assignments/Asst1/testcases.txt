@@ -1,0 +1,20 @@
+
+1. Workload D:
+Workload D is quite similar to Workload B in that both are mallocing 1 byte chunks, and then freeing all those 1 byte
+pointers. However, Workload D increases the amount of 1 byte chunks being malloced from 120 to 300. Also, Workload D
+frees all those 1 byte pointers starting from the end of the array rather than the beginning of the array. Or in other
+words, the most recently malloced pointers get freed first rather than the other way around.
+
+Reasoning: We choose to add this workload since we wanted to make sure that Workload B and Workload D produced the same
+result in terms of how the memory was configured regardless of how the pointer were freed.
+We used assert(isMemCorrectlyConfigured()); to determine that all the workloads left the memory in the same format after
+all the malloced pointers had been freed.
+
+2. Workload E:
+Workload E mallocs a 30 by 30 matrix and then subsequently frees the matrix. It initialized an array double-pointer with
+size 'n', then it could dynamically allocate memory for each row with size 'n'. For free(), it freed data on each row,
+then it freed double-pointer as row-pointer.
+
+Reasoning: We chose to add this workload since creating a 2D matrix is a fairly common real life scenario that our
+malloc and free function will face. Also, a 30 by 30 2D array allowed us to test the edge cases since it is the largest
+matrix that our memory can handle without throwing an out-of-memory error.
